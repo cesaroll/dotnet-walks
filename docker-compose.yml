@@ -12,10 +12,10 @@ services:
       MSSQL_PID: "Developer"
     ports:
       - "1433:1433"
-    # volumes:
-    #   - azure-sql-storage:/var/opt/mssql-extensibility/data
-    #   - azure-sql-storage:/var/opt/mssql-extensibility/log
-    #   - azure-sql-storage:/var/opt/mssql-extensibility
+    volumes:
+      - ./.docker/azure-sql-storage:/var/opt/mssql-extensibility/data
+      - ./.docker/azure-sql-storage:/var/opt/mssql-extensibility/log
+      - ./.docker/azure-sql-storage:/var/opt/mssql-extensibility
 
 # services:
 #   mssql:
