@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using Walks.API.Data;
 using Walks.API.Models.Domain;
 
@@ -13,9 +14,9 @@ namespace Walks.API.Repositories
       _dbContext = dbContext;
     }
 
-    public IList<Region> GetAll()
+    public async Task<IList<Region>> GetAllAsync()
     {
-      return _dbContext.Regions.ToList();
+      return await _dbContext.Regions.ToListAsync();
     }
   }
 }

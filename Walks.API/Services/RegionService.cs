@@ -17,9 +17,9 @@ namespace Walks.API.Services
       _mapper = mapper;
     }
 
-    public IList<RegionDTO> GetAll()
+    public async Task<IList<RegionDTO> > GetAllAsync()
     {
-        var regions = _regionRepo.GetAll();
+        var regions = await _regionRepo.GetAllAsync();
         return _mapper.Map<List<Models.DTO.RegionDTO>>(regions);
     }
   }

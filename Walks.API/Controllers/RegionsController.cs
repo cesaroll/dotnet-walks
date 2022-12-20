@@ -15,8 +15,9 @@ public class RegionsController : ControllerBase
   }
 
   [HttpGet]
-    public IActionResult GetAllRegions()
+    public async Task<IActionResult> GetAllRegions()
     {
-        return Ok(_regionService.GetAll());
+        var regionsDTO = await _regionService.GetAllAsync();
+        return Ok(regionsDTO);
     }
 }

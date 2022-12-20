@@ -5,6 +5,6 @@ namespace Walks.API.Services
 {
     public interface IRegionService
     {
-        IList<RegionDTO> GetAll();
+        Task<IList<RegionDTO>> GetAllAsync();
     }
 }
