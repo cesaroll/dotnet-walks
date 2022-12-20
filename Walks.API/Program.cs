@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Walks.API.Data;
 using Walks.API.Repositories;
+using Walks.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<WalksDbContext>(options =>
 });
 
 builder.Services.AddScoped<IRegionRepository, RegionRepository>();
+builder.Services.AddScoped<IRegionService, RegionService>();
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 

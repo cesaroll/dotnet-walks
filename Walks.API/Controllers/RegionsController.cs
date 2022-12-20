@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Walks.API.Data;
-using Walks.API.Models.Domain;
-using Walks.API.Repositories;
+using Walks.API.Services;
 
 namespace Walks.API.Controllers;
 
@@ -9,16 +7,16 @@ namespace Walks.API.Controllers;
 [Route("[controller]")]
 public class RegionsController : ControllerBase
 {
-    private readonly IRegionRepository _regionsRepo;
+    private readonly IRegionService _regionService;
 
-  public RegionsController(IRegionRepository regionsRepo)
+  public RegionsController(IRegionService regionService)
   {
-    _regionsRepo = regionsRepo;
+    _regionService = regionService;
   }
 
   [HttpGet]
     public IActionResult GetAllRegions()
     {
-        return Ok(_regionsRepo.GetAll());
+        return Ok(_regionService.GetAll());
     }
 }
