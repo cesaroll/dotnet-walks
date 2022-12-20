@@ -13,9 +13,7 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      - ./.docker/azure-sql-storage:/var/opt/mssql-extensibility/data
-      - ./.docker/azure-sql-storage:/var/opt/mssql-extensibility/log
-      - ./.docker/azure-sql-storage:/var/opt/mssql-extensibility
+      - ./.docker/mssql:/var/opt/mssql
 
 # services:
 #   mssql:
