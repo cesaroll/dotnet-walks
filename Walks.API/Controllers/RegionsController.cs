@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Mvc;
 using Walks.API.Models.DTO;
 using Walks.API.Services;
@@ -24,6 +25,7 @@ public class RegionsController : ControllerBase
 
   [HttpGet]
   [Route("{id:guid}")]
+  [ActionName("GetRegionAsync")]
   public async Task<IActionResult> GetRegionAsync(Guid id) {
     var regionDTO = await _regionService.GetAsync(id);
 
@@ -31,5 +33,13 @@ public class RegionsController : ControllerBase
       return NotFound();
 
     return Ok(regionDTO);
+  }
+
+  [HttpPost]
+  public async Task<IActionResult> AddRegionAsync(AddRegionRequest addRegionRequest) {
+    var region = await _regionService.AddAsync(addRegionRequest);
+
+    return CreatedAtAction(nameof(GetRegionAsync), new { Id = region.Id }, region);
+
   }
 }

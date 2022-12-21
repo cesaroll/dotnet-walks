@@ -8,5 +8,7 @@ namespace Walks.API.Services
         Task<IList<RegionDTO>> GetAllAsync();
 
         Task<RegionDTO> GetAsync(Guid id);
+
+        Task<RegionDTO> AddAsync(AddRegionRequest addRegionRequest);
     }
 }

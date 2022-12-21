@@ -23,5 +23,11 @@ namespace Walks.API.Repositories
     {
       return await _dbContext.Regions.FirstOrDefaultAsync(r => r.Id == id);
     }
+
+    public async Task<Region> AddAsync(Region region) {
+      await _dbContext.AddAsync(region);
+      await _dbContext.SaveChangesAsync();
+      return region;
+    }
   }
 }
