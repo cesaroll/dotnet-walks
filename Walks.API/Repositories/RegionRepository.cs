@@ -29,5 +29,26 @@ namespace Walks.API.Repositories
       await _dbContext.SaveChangesAsync();
       return region;
     }
+
+    public async Task DeleteAsync(Guid id) {
+      await _dbContext.Regions.Where(x => x.Id == id).ExecuteDeleteAsync();
+    }
+
+    public async Task<Region> UpdateAsync(Region region) {
+      var existingRegion = await this.GetAsync(region.Id);
+
+      if (existingRegion == null)
+        return null;
+
+      existingRegion.Code = region.Code;
+      existingRegion.Name = region.Name;
+      existingRegion.Area = region.Area;
+      existingRegion.Lat = region.Lat;
+      existingRegion.Long = region.Long;
+      existingRegion.Population = region.Population;
+
+      await _dbContext.SaveChangesAsync();
+      return existingRegion;
+    }
   }
 }

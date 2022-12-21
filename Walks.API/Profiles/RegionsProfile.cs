@@ -13,6 +13,8 @@ namespace Walks.API.Profiles
 
             CreateMap<Models.DTO.AddRegionRequest, Models.Domain.Region>()
                 .ForMember(dest => dest.Id, act => act.AddTransform(src => Guid.NewGuid()));
+
+            CreateMap<Models.DTO.UpdateRegionRequest, Models.Domain.Region>();
         }
     }
 }

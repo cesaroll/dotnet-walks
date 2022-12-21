@@ -42,4 +42,23 @@ public class RegionsController : ControllerBase
     return CreatedAtAction(nameof(GetRegionAsync), new { Id = region.Id }, region);
 
   }
+
+  [HttpDelete]
+  [Route("{id:guid}")]
+  public async Task DeleteRegionAsync(Guid id) {
+    await _regionService.DeleteAsync(id);
+  }
+
+  [HttpPut]
+  [Route("{id:guid}")]
+  public async Task<IActionResult> UpdateRegionAsync(
+    [FromRoute] Guid id,
+    [FromBody] UpdateRegionRequest updateRegionRequest) {
+      var region = await _regionService.UpdateAsync(id, updateRegionRequest);
+
+      if (region == null)
+        return NotFound();
+
+      return Ok(region);
+  }
 }

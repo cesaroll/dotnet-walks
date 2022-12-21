@@ -10,5 +10,9 @@ namespace Walks.API.Services
         Task<RegionDTO> GetAsync(Guid id);
 
         Task<RegionDTO> AddAsync(AddRegionRequest addRegionRequest);
+
+        Task DeleteAsync(Guid id);
+
+        Task<RegionDTO> UpdateAsync(Guid id, UpdateRegionRequest updateRegionRequest);
     }
 }
