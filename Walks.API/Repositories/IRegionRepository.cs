@@ -6,5 +6,6 @@ namespace Walks.API.Repositories
     public interface IRegionRepository
     {
         Task<IList<Region>> GetAllAsync();
+        Task<Region> GetAsync(Guid id);
     }
 }

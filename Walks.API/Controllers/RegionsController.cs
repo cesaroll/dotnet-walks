@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Walks.API.Models.DTO;
 using Walks.API.Services;
 
 namespace Walks.API.Controllers;
@@ -7,7 +8,7 @@ namespace Walks.API.Controllers;
 [Route("[controller]")]
 public class RegionsController : ControllerBase
 {
-    private readonly IRegionService _regionService;
+  private readonly IRegionService _regionService;
 
   public RegionsController(IRegionService regionService)
   {
@@ -15,9 +16,20 @@ public class RegionsController : ControllerBase
   }
 
   [HttpGet]
-    public async Task<IActionResult> GetAllRegions()
-    {
-        var regionsDTO = await _regionService.GetAllAsync();
-        return Ok(regionsDTO);
-    }
+  public async Task<IActionResult> GetAllRegionsAsync()
+  {
+      var regionsDTO = await _regionService.GetAllAsync();
+      return Ok(regionsDTO);
+  }
+
+  [HttpGet]
+  [Route("{id:guid}")]
+  public async Task<IActionResult> GetRegionAsync(Guid id) {
+    var regionDTO = await _regionService.GetAsync(id);
+
+    if (regionDTO == null)
+      return NotFound();
+
+    return Ok(regionDTO);
+  }
 }

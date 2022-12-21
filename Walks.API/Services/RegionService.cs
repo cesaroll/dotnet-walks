@@ -22,5 +22,11 @@ namespace Walks.API.Services
         var regions = await _regionRepo.GetAllAsync();
         return _mapper.Map<List<Models.DTO.RegionDTO>>(regions);
     }
+
+    public async Task<RegionDTO> GetAsync(Guid id)
+    {
+        var region = await _regionRepo.GetAsync(id);
+        return _mapper.Map<Models.DTO.RegionDTO>(region);
+    }
   }
 }

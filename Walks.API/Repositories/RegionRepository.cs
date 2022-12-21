@@ -18,5 +18,10 @@ namespace Walks.API.Repositories
     {
       return await _dbContext.Regions.ToListAsync();
     }
+
+    public async Task<Region> GetAsync(Guid id)
+    {
+      return await _dbContext.Regions.FirstOrDefaultAsync(r => r.Id == id);
+    }
   }
 }
