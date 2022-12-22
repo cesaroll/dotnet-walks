@@ -1,6 +1,6 @@
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Mvc;
-using Walks.API.Models.DTO;
+using Walks.API.Models.DTOs;
 using Walks.API.Services;
 
 namespace Walks.API.Controllers;
@@ -19,20 +19,20 @@ public class RegionsController : ControllerBase
   [HttpGet]
   public async Task<IActionResult> GetAllRegionsAsync()
   {
-      var regionsDTO = await _regionService.GetAllAsync();
-      return Ok(regionsDTO);
+      var regions = await _regionService.GetAllAsync();
+      return Ok(regions);
   }
 
   [HttpGet]
   [Route("{id:guid}")]
   [ActionName("GetRegionAsync")]
   public async Task<IActionResult> GetRegionAsync(Guid id) {
-    var regionDTO = await _regionService.GetAsync(id);
+    var region = await _regionService.GetAsync(id);
 
-    if (regionDTO == null)
-      return NotFound();
+    // if (region == null) TODO: move to middleware
+    //   return NotFound();
 
-    return Ok(regionDTO);
+    return Ok(region);
   }
 
   [HttpPost]
@@ -40,7 +40,6 @@ public class RegionsController : ControllerBase
     var region = await _regionService.AddAsync(addRegionRequest);
 
     return CreatedAtAction(nameof(GetRegionAsync), new { Id = region.Id }, region);
-
   }
 
   [HttpDelete]
@@ -56,8 +55,8 @@ public class RegionsController : ControllerBase
     [FromBody] UpdateRegionRequest updateRegionRequest) {
       var region = await _regionService.UpdateAsync(id, updateRegionRequest);
 
-      if (region == null)
-        return NotFound();
+      // if (region == null) TODO: move to middleware
+      //   return NotFound();
 
       return Ok(region);
   }

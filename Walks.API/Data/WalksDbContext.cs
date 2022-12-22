@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
-using Walks.API.Models.Domain;
+using Walks.API.Models.Entities;
 
 namespace Walks.API.Data;
 
@@ -8,10 +7,9 @@ public class WalksDbContext: DbContext
 {
     public WalksDbContext(DbContextOptions<WalksDbContext> options): base(options)
     {
-        
     }
 
-    public DbSet<Region> Regions { get; set; }
-    public DbSet<Walk> Walks { get; set; }
-    public DbSet<WalkDifficulty> WalkDifficulties { get; set; }
+    public DbSet<RegionEntity> Regions => Set<RegionEntity>();
+    public DbSet<WalkEntity> Walks => Set<WalkEntity>();
+    public DbSet<WalkDifficultyEntity> WalkDifficulties => Set<WalkDifficultyEntity>();
 }

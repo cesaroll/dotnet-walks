@@ -1,7 +1,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Walks.API.Data;
-using Walks.API.Models.Domain;
+using Walks.API.Models.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Walks.API.Repositories
 {
@@ -14,38 +15,41 @@ namespace Walks.API.Repositories
       _dbContext = dbContext;
     }
 
-    public async Task<IList<Region>> GetAllAsync()
+    public async Task<IList<RegionEntity>> GetAllAsync()
     {
       return await _dbContext.Regions.ToListAsync();
     }
 
-    public async Task<Region> GetAsync(Guid id)
+    public async Task<RegionEntity> GetAsync(Guid id)
     {
-      return await _dbContext.Regions.FirstOrDefaultAsync(r => r.Id == id);
+      var regionEntity = await _dbContext.Regions.FirstOrDefaultAsync(r => r.Id == id);
+
+      if (regionEntity == null) {
+        throw new ValidationException("Region id was not found");
+      }
+
+      return regionEntity;
     }
 
-    public async Task<Region> AddAsync(Region region) {
-      await _dbContext.AddAsync(region);
+    public async Task<RegionEntity> AddAsync(RegionEntity regionEntity) {
+      var entry = await _dbContext.AddAsync(regionEntity);
       await _dbContext.SaveChangesAsync();
-      return region;
+      return entry.Entity;
     }
 
     public async Task DeleteAsync(Guid id) {
       await _dbContext.Regions.Where(x => x.Id == id).ExecuteDeleteAsync();
     }
 
-    public async Task<Region> UpdateAsync(Region region) {
-      var existingRegion = await this.GetAsync(region.Id);
-
-      if (existingRegion == null)
-        return null;
-
-      existingRegion.Code = region.Code;
-      existingRegion.Name = region.Name;
-      existingRegion.Area = region.Area;
-      existingRegion.Lat = region.Lat;
-      existingRegion.Long = region.Long;
-      existingRegion.Population = region.Population;
+    public async Task<RegionEntity> UpdateAsync(RegionEntity regionEntity) {
+      var existingRegion = await this.GetAsync(regionEntity.Id);
+      
+      existingRegion.Code = regionEntity.Code;
+      existingRegion.Name = regionEntity.Name;
+      existingRegion.Area = regionEntity.Area;
+      existingRegion.Lat = regionEntity.Lat;
+      existingRegion.Long = regionEntity.Long;
+      existingRegion.Population = regionEntity.Population;
 
       await _dbContext.SaveChangesAsync();
       return existingRegion;

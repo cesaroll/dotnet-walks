@@ -1,18 +1,18 @@
 using System;
-using Walks.API.Models.DTO;
+using Walks.API.Models.DTOs;
 
 namespace Walks.API.Services
 {
     public interface IRegionService
     {
-        Task<IList<RegionDTO>> GetAllAsync();
+        Task<IList<Region>> GetAllAsync();
 
-        Task<RegionDTO> GetAsync(Guid id);
+        Task<Region> GetAsync(Guid id);
 
-        Task<RegionDTO> AddAsync(AddRegionRequest addRegionRequest);
+        Task<Region> AddAsync(AddRegionRequest addRegionRequest);
 
         Task DeleteAsync(Guid id);
 
-        Task<RegionDTO> UpdateAsync(Guid id, UpdateRegionRequest updateRegionRequest);
+        Task<Region> UpdateAsync(Guid id, UpdateRegionRequest updateRegionRequest);
     }
 }

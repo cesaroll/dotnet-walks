@@ -8,13 +8,13 @@ namespace Walks.API.Profiles
     {
         public RegionsProfile()
         {
-            CreateMap<Models.Domain.Region, Models.DTO.RegionDTO>()
+            CreateMap<Models.Entities.RegionEntity, Models.DTOs.Region>()
                 .ReverseMap();
 
-            CreateMap<Models.DTO.AddRegionRequest, Models.Domain.Region>()
+            CreateMap<Models.DTOs.AddRegionRequest, Models.Entities.RegionEntity>()
                 .ForMember(dest => dest.Id, act => act.AddTransform(src => Guid.NewGuid()));
 
-            CreateMap<Models.DTO.UpdateRegionRequest, Models.Domain.Region>();
+            CreateMap<Models.DTOs.UpdateRegionRequest, Models.Entities.RegionEntity>();
         }
     }
 }

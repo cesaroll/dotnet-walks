@@ -1,7 +1,5 @@
-using System;
 using AutoMapper;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Walks.API.Models.DTO;
+using Walks.API.Models.DTOs;
 using Walks.API.Repositories;
 
 namespace Walks.API.Services
@@ -18,35 +16,35 @@ namespace Walks.API.Services
       _mapper = mapper;
     }
 
-    public async Task<IList<RegionDTO> > GetAllAsync()
+    public async Task<IList<Region> > GetAllAsync()
     {
         var regions = await _regionRepo.GetAllAsync();
-        return _mapper.Map<List<Models.DTO.RegionDTO>>(regions);
+        return _mapper.Map<List<Models.DTOs.Region>>(regions);
     }
 
-    public async Task<RegionDTO> GetAsync(Guid id)
+    public async Task<Region> GetAsync(Guid id)
     {
         var region = await _regionRepo.GetAsync(id);
-        return _mapper.Map<Models.DTO.RegionDTO>(region);
+        return _mapper.Map<Models.DTOs.Region>(region);
     }
 
-    public async Task<RegionDTO> AddAsync(AddRegionRequest addRegionRequest) {
-      var region = _mapper.Map<Models.Domain.Region>(addRegionRequest);
+    public async Task<Region> AddAsync(AddRegionRequest addRegionRequest) {
+      var region = _mapper.Map<Models.Entities.RegionEntity>(addRegionRequest);
 
       region = await _regionRepo.AddAsync(region);
-      return _mapper.Map<Models.DTO.RegionDTO>(region);
+      return _mapper.Map<Models.DTOs.Region>(region);
     }
 
     public async Task DeleteAsync(Guid id) {
       await _regionRepo.DeleteAsync(id);
     }
 
-    public async Task<RegionDTO> UpdateAsync(Guid id, UpdateRegionRequest updateRegionRequest) {
-      var region = _mapper.Map<Models.Domain.Region>(updateRegionRequest);
+    public async Task<Region> UpdateAsync(Guid id, UpdateRegionRequest updateRegionRequest) {
+      var region = _mapper.Map<Models.Entities.RegionEntity>(updateRegionRequest);
       region.Id = id;
 
       region = await _regionRepo.UpdateAsync(region);
-      return _mapper.Map<Models.DTO.RegionDTO>(region);
+      return _mapper.Map<Models.DTOs.Region>(region);
     }
   }
 }
