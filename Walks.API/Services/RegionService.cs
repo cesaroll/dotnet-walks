@@ -1,5 +1,6 @@
 using AutoMapper;
 using Walks.API.Models.DTOs;
+using Walks.API.Models.DTOs.Requests;
 using Walks.API.Repositories;
 
 namespace Walks.API.Services
@@ -28,9 +29,10 @@ namespace Walks.API.Services
         return _mapper.Map<Models.DTOs.Region>(region);
     }
 
-    public async Task<Region> AddAsync(AddRegionRequest addRegionRequest) {
-      var region = _mapper.Map<Models.Entities.RegionEntity>(addRegionRequest);
-
+    public async Task<Region> AddAsync(MutateRegionRequest mutateRegionRequest) {
+      var region = _mapper.Map<Models.Entities.RegionEntity>(mutateRegionRequest);
+      region.Id = Guid.NewGuid();
+      
       region = await _regionRepo.AddAsync(region);
       return _mapper.Map<Models.DTOs.Region>(region);
     }
@@ -39,7 +41,7 @@ namespace Walks.API.Services
       await _regionRepo.DeleteAsync(id);
     }
 
-    public async Task<Region> UpdateAsync(Guid id, UpdateRegionRequest updateRegionRequest) {
+    public async Task<Region> UpdateAsync(Guid id, MutateRegionRequest updateRegionRequest) {
       var region = _mapper.Map<Models.Entities.RegionEntity>(updateRegionRequest);
       region.Id = id;
 

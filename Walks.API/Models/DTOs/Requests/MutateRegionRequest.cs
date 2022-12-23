@@ -1,8 +1,6 @@
-using System;
-
-namespace Walks.API.Models.DTOs
+namespace Walks.API.Models.DTOs.Requests
 {
-    public record AddRegionRequest
+    public record MutateRegionRequest
     {
         public string Code { get; init; } = string.Empty;
         public string Name { get; init; } = string.Empty;

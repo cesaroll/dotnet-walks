@@ -7,8 +7,8 @@ namespace Walks.API.Repositories
     {
         Task<IList<WalkEntity>> GetAllAsync();
         Task<WalkEntity> GetAsync(Guid id);
-        Task<WalkEntity> AddAsync(WalkEntity walk);
+        Task<WalkEntity> AddAsync(WalkEntity walkEntity);
         Task DeleteAsync(Guid id);
-        Task<WalkEntity> UpdateAsync(WalkEntity walk);
+        Task<WalkEntity> UpdateAsync(WalkEntity walkEntity);
     }
 }

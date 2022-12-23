@@ -1,5 +1,6 @@
 using System;
 using Walks.API.Models.DTOs;
+using Walks.API.Models.DTOs.Requests;
 
 namespace Walks.API.Services
 {
@@ -9,10 +10,10 @@ namespace Walks.API.Services
 
         Task<Region> GetAsync(Guid id);
 
-        Task<Region> AddAsync(AddRegionRequest addRegionRequest);
+        Task<Region> AddAsync(MutateRegionRequest mutateRegionRequest);
 
         Task DeleteAsync(Guid id);
 
-        Task<Region> UpdateAsync(Guid id, UpdateRegionRequest updateRegionRequest);
+        Task<Region> UpdateAsync(Guid id, MutateRegionRequest updateRegionRequest);
     }
 }

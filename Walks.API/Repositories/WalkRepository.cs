@@ -1,31 +1,63 @@
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using Walks.API.Data;
 using Walks.API.Models.Entities;
 
 namespace Walks.API.Repositories;
 
 public class WalkRepository : IWalkRepository
 {
-    public Task<IList<WalkEntity>> GetAllAsync()
+    private readonly WalksDbContext _dbContext;
+    private readonly DbSet<WalkEntity> _walks;
+
+    public WalkRepository(WalksDbContext dbContext)
     {
-        throw new NotImplementedException();
+        _dbContext = dbContext;
+        _walks = _dbContext.Walks;
     }
 
-    public Task<WalkEntity> GetAsync(Guid id)
+    public async Task<IList<WalkEntity>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _walks
+            .Include(x => x.Region)
+            .Include(x => x.WalkDifficulty)
+            .ToListAsync();
     }
 
-    public Task<WalkEntity> AddAsync(WalkEntity walk)
+    public async Task<WalkEntity> GetAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var walkEntity = await _walks.FirstOrDefaultAsync(w => w.Id == id);
+
+        if (walkEntity == null)
+        {
+            throw new ValidationException("Walk id was not found");
+        }
+
+        return walkEntity;
     }
 
-    public Task DeleteAsync(Guid id)
+    public async Task<WalkEntity> AddAsync(WalkEntity walkEntity)
     {
-        throw new NotImplementedException();
+        var entry = await _walks.AddAsync(walkEntity);
+        await _dbContext.SaveChangesAsync();
+        return entry.Entity;
     }
 
-    public Task<WalkEntity> UpdateAsync(WalkEntity walk)
+    public async Task DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        await _walks.Where(w => w.Id == id).ExecuteDeleteAsync();
+    }
+
+    public async Task<WalkEntity> UpdateAsync(WalkEntity walkEntity)
+    {
+        var existingWalk = await this.GetAsync(walkEntity.Id);
+
+        existingWalk.Name = walkEntity.Name;
+        existingWalk.Length = walkEntity.Length;
+        existingWalk.RegionId = walkEntity.RegionId;
+        existingWalk.WalkDifficultyId = walkEntity.WalkDifficultyId;
+
+        await _dbContext.SaveChangesAsync();
+        return existingWalk;
     }
 }

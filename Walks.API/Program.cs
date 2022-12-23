@@ -19,6 +19,8 @@ builder.Services.AddDbContext<WalksDbContext>(options =>
 
 builder.Services.AddScoped<IRegionRepository, RegionRepository>();
 builder.Services.AddScoped<IRegionService, RegionService>();
+builder.Services.AddScoped<IWalkDifficultyRepository, WalkDifficultyRepository>();
+builder.Services.AddScoped<IWalkDifficultyService, WalkDifficultyService>();
 builder.Services.AddScoped<IWalkRepository, WalkRepository>();
 builder.Services.AddScoped<IWalkService, WalkService>();
 
