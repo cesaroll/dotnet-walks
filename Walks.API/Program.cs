@@ -1,7 +1,10 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Walks.API.Data;
 using Walks.API.Repositories;
 using Walks.API.Services;
+using Walks.API.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddValidatorsFromAssemblyContaining<MutateRegionRequestValidator>();
+builder.Services.AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters();
 
 builder.Services.AddDbContext<WalksDbContext>(options =>
 {
