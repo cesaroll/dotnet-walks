@@ -26,7 +26,10 @@ public class WalkRepository : IWalkRepository
 
     public async Task<WalkEntity> GetAsync(Guid id)
     {
-        var walkEntity = await _walks.FirstOrDefaultAsync(w => w.Id == id);
+        var walkEntity = await _walks
+            .Include(x => x.Region)
+            .Include(x => x.WalkDifficulty)
+            .FirstOrDefaultAsync(w => w.Id == id);
 
         if (walkEntity == null)
         {
