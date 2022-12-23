@@ -10,6 +10,6 @@ public class WalkProfile : Profile
         CreateMap<Models.Entities.WalkEntity, Models.DTOs.Walk>()
             .ReverseMap();
 
-        CreateMap<MutateRegionRequest, Models.Entities.RegionEntity>();
+        CreateMap<MutateWalkRequest, Models.Entities.WalkEntity>();
     }
 }

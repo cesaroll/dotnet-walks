@@ -9,6 +9,6 @@ public record Walk
     public Guid WalkDifficultyId { get; init; }
 
     // Navigation Property
-    public Region Region { get; init; } = new Region();
-    public WalkDifficulty WalkDifficulty { get; init; } = new WalkDifficulty();
+    public Region? Region { get; init; }
+    public WalkDifficulty? WalkDifficulty { get; init; }
 }

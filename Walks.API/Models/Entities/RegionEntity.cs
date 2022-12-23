@@ -13,5 +13,5 @@ public class RegionEntity
     public long Population { get; set; }
 
     // Navigation Property
-    public List<WalkEntity> Walks { get; set; } = new List<WalkEntity>();
+    public List<WalkEntity>? Walks { get; set; }
 }

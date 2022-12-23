@@ -9,6 +9,6 @@ public class WalkEntity
     public Guid WalkDifficultyId { get; set; }
 
     // Navigation Property
-    public RegionEntity Region { get; set; } = new RegionEntity();
-    public WalkDifficultyEntity WalkDifficulty { get; set; } = new WalkDifficultyEntity();
+    public RegionEntity? Region { get; set; }
+    public WalkDifficultyEntity? WalkDifficulty { get; set; }
 }
