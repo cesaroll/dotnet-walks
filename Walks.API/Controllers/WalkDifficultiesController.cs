@@ -39,7 +39,6 @@ public class WalkDifficultiesController : Controller
     }
 
     [HttpPost]
-    [Route("{id:guid}")]
     public async Task<IActionResult> AddWalkDifficultyAsync(MutateWalkDifficultyRequest mutateWalkDifficultyRequest)
     {
         var walkDifficulty = await _walkDifficultyService.AddAsync(mutateWalkDifficultyRequest);
