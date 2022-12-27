@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Walks.API.Models.DTOs.Requests;
 using Walks.API.Services;
@@ -6,6 +7,7 @@ namespace Walks.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class WalkDifficultiesController : Controller
 {
     private readonly IWalkDifficultyService _walkDifficultyService;
@@ -33,12 +35,14 @@ public class WalkDifficultiesController : Controller
 
     [HttpDelete]
     [Route("{id:guid}")]
+    [Authorize(Roles = "writer")]
     public async Task DeleteWalkDifficultyAsync(Guid id)
     {
         await _walkDifficultyService.DeleteAsync(id);
     }
 
     [HttpPost]
+    [Authorize(Roles = "writer")]
     public async Task<IActionResult> AddWalkDifficultyAsync(MutateWalkDifficultyRequest mutateWalkDifficultyRequest)
     {
         var walkDifficulty = await _walkDifficultyService.AddAsync(mutateWalkDifficultyRequest);
@@ -51,6 +55,7 @@ public class WalkDifficultiesController : Controller
     
     [HttpPut]
     [Route("{id:guid}")]
+    [Authorize(Roles = "writer")]
     public async Task<IActionResult> UpdateWalkDifficultyAsync(
         [FromRoute] Guid id,
         [FromBody] MutateWalkDifficultyRequest mutateWalkDifficultyRequest)

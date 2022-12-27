@@ -34,7 +34,7 @@ public class RegionsController : Controller
   }
 
   [HttpPost]
-  [Authorize]
+  [Authorize(Roles = "writer")]
   public async Task<IActionResult> AddRegionAsync(MutateRegionRequest mutateRegionRequest) {
     var region = await _regionService.AddAsync(mutateRegionRequest);
 
@@ -43,14 +43,14 @@ public class RegionsController : Controller
 
   [HttpDelete]
   [Route("{id:guid}")]
-  [Authorize]
+  [Authorize(Roles = "writer")]
   public async Task DeleteRegionAsync(Guid id) {
     await _regionService.DeleteAsync(id);
   }
 
   [HttpPut]
   [Route("{id:guid}")]
-  [Authorize]
+  [Authorize(Roles = "writer")]
   public async Task<IActionResult> UpdateRegionAsync(
     [FromRoute] Guid id,
     [FromBody] MutateRegionRequest mutateRegionRequest) {
