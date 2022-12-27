@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Walks.API.Models.DTOs;
+using Walks.API.Models.Entities;
 
 namespace Walks.API.Services;
 
@@ -15,7 +16,7 @@ public class TokenService : ITokenService
         _configuration = configuration;
     }
 
-    public Task<string> CreateTokenAsync(User user)
+    public Task<string> CreateTokenAsync(UserEntity user)
     {
         // Create Claims
         var claims = new List<Claim>();
@@ -23,10 +24,10 @@ public class TokenService : ITokenService
         claims.Add(new Claim(ClaimTypes.Surname, user.LastName));
         claims.Add(new Claim(ClaimTypes.Email, user.Email));
         
-        // Loop into user roles
-        user.Roles?.ForEach(role =>
+        user.UserRoles.ForEach(userRole =>
         {
-            claims.Add(new Claim(ClaimTypes.Role, role));
+            if (userRole.Role != null) 
+                claims.Add(new Claim(ClaimTypes.Role, userRole.Role.Name));
         });
         
         // create token

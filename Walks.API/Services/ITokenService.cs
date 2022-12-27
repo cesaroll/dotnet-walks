@@ -1,8 +1,8 @@
-using Walks.API.Models.DTOs;
+using Walks.API.Models.Entities;
 
 namespace Walks.API.Services;
 
 public interface ITokenService
 {
-    public Task<string> CreateTokenAsync(User user);
+    public Task<string> CreateTokenAsync(UserEntity user);
 }

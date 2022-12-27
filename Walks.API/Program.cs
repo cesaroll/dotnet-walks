@@ -64,7 +64,8 @@ builder.Services.AddScoped<IWalkDifficultyService, WalkDifficultyService>();
 builder.Services.AddScoped<IWalkRepository, WalkRepository>();
 builder.Services.AddScoped<IWalkService, WalkService>();
 
-builder.Services.AddSingleton<IUserRepository, MemoryUserRepository>();
+// builder.Services.AddSingleton<IUserRepository, MemoryUserRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 

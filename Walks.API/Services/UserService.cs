@@ -27,8 +27,7 @@ public class UserService : IUserService
 
         return await result.Match<Task<Result<string>>>(  async userEntity =>
         {
-            var user = _mapper.Map<Models.DTOs.User>(userEntity);
-            var token = await _tokenService.CreateTokenAsync(user);
+            var token = await _tokenService.CreateTokenAsync(userEntity);
             return token;
         }, exception =>
         {
