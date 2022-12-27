@@ -1,10 +1,11 @@
+using LanguageExt.Common;
 using Walks.API.Models.Entities;
 
 namespace Walks.API.Repositories;
 
 public class MemoryUserRepository : IUserRepository
 {
-    private static List<UserEntity> _users = new List<UserEntity>()
+    private static readonly List<UserEntity> _users = new List<UserEntity>()
     {
         new UserEntity()
         {
@@ -15,14 +16,23 @@ public class MemoryUserRepository : IUserRepository
         new UserEntity()
         {
             FirstName = "Cesar", LastName = "Writer", Email = "cesar.writer@walks.com", Id = Guid.NewGuid(),
-            Username = "cesar", Password = "abc123",
+            Username = "cesar", Password = "start123",
             Roles = new List<string>() {"reader", "writer"}
         }
     };
     
-    public async Task<bool> AuthenticateAsync(string username, string password)
+    public async Task<Result<UserEntity>> GetAsync(string username, string password)
     {
-        return _users.Exists(x => x.Username.Equals(username, StringComparison.InvariantCultureIgnoreCase) &&
-                           x.Password == password);
+        var user = _users.FirstOrDefault(x =>
+            x.Username.Equals(username, StringComparison.InvariantCultureIgnoreCase) &&
+            x.Password == password);
+
+        if (user == null)
+        {
+            var exception = new Exception("User not found exception");
+            return new Result<UserEntity>(exception);
+        }
+
+        return user;
     }
 }

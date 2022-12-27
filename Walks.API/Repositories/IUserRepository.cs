@@ -1,8 +1,9 @@
-using System.Net.Security;
+using LanguageExt.Common;
+using Walks.API.Models.Entities;
 
 namespace Walks.API.Repositories;
 
 public interface IUserRepository
 {
-    public Task<bool> AuthenticateAsync(string username, string password);
+    public Task<Result<UserEntity>> GetAsync(string username, string password);
 }

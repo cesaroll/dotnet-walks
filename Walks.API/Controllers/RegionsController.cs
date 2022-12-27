@@ -7,6 +7,7 @@ namespace Walks.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class RegionsController : Controller
 {
   private readonly IRegionService _regionService;
