@@ -1,5 +1,4 @@
 using System.Text;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +6,6 @@ using Microsoft.IdentityModel.Tokens;
 using Walks.API.Data;
 using Walks.API.Repositories;
 using Walks.API.Services;
-using Walks.API.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddValidatorsFromAssemblyContaining<MutateRegionRequestValidator>();
+// builder.Services.AddValidatorsFromAssemblyContaining<MutateRegionRequestValidator>();
 builder.Services.AddFluentValidationAutoValidation()
     .AddFluentValidationClientsideAdapters();
 

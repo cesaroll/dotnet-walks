@@ -44,6 +44,10 @@ namespace Walks.API.Repositories
     public async Task<RegionEntity> UpdateAsync(RegionEntity regionEntity) {
       var existingRegion = await this.GetAsync(regionEntity.Id);
       
+      if (existingRegion == null) {
+        throw new ValidationException("Region id was not found");
+      }
+      
       existingRegion.Code = regionEntity.Code;
       existingRegion.Name = regionEntity.Name;
       existingRegion.Area = regionEntity.Area;

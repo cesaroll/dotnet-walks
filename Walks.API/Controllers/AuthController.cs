@@ -27,8 +27,6 @@ public class AuthController : Controller
             return Ok(jwt);
         }, exception =>
         {
-            // TODO: add validations
-            
             if (exception is AuthenticationException)
             {
                 return Unauthorized();

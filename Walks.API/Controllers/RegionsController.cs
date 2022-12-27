@@ -29,9 +29,6 @@ public class RegionsController : Controller
   public async Task<IActionResult> GetRegionAsync(Guid id) {
     var region = await _regionService.GetAsync(id);
 
-    // if (region == null) TODO: move to middleware
-    //   return NotFound();
-
     return Ok(region);
   }
 
@@ -57,9 +54,6 @@ public class RegionsController : Controller
     [FromRoute] Guid id,
     [FromBody] MutateRegionRequest mutateRegionRequest) {
       var region = await _regionService.UpdateAsync(id, mutateRegionRequest);
-
-      // if (region == null) TODO: move to middleware
-      //   return NotFound();
 
       return Ok(region);
   }
